@@ -1,5 +1,5 @@
 import scrapy
-
+from spiders.items import DmozItem
 
 class DmozSpider(scrapy.Spider):
 	"""docstring for DmozSpider"""
@@ -11,8 +11,12 @@ class DmozSpider(scrapy.Spider):
 
 	def parse(self, response):
 		print(response.request.headers["User-Agent"])
-		links = ''
 		link_list = response.xpath("//ul[@class='archive-list']/li/a/@href")
+		title = response.xpath("//h1[@class='title-article']/text()").extract()[0]
+		linklist = []
 		for link in link_list:
-			links += link.extract()
-		print(links)
+			linklist.append(link.extract())
+		item = DmozItem()
+		item['title'] = title
+		item['link'] = linklist
+		yield item
