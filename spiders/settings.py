@@ -96,6 +96,8 @@ DOWNLOADER_MIDDLEWARES = {
    'spiders.middlewares.SpidersDownloaderMiddleware': 543,
    'spiders.middlewares.RotateUserAgentMiddleware':50,
 }
+
+
 ITEM_PIPELINES={
 # 'ArticleSpider.pipelines.MysqlTwistedPipline':1,
 # 'ArticleSpider.pipelines.MongoPipeline': 1,

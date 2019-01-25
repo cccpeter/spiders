@@ -15,12 +15,12 @@ class SpidersPipeline(object):
 class MysqlPipeline(object):
 
     def process_item(self, item, spider):
-        print('开始插入数据库_____________________________')
+        # print('开始插入数据库_____________________________')
         self.conn = MySQLdb.connect('127.0.0.1', 'root', 'mysql', 'test', charset="utf8", use_unicode=True)
         self.cursor = self.conn.cursor()
         item['link'] = json.dumps(item['link'])
         insert_sql = "insert into text(id,title,link)VALUE ('','%s','%s')" % (item['title'], item['link'])
-        print('sql语句：%s'% insert_sql)
+        # print('sql语句：%s'% insert_sql)
         self.cursor.execute(insert_sql)
         self.conn.commit()
         self.conn.close()
