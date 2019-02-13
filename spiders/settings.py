@@ -98,10 +98,10 @@ DOWNLOADER_MIDDLEWARES = {
 }
 
 
-ITEM_PIPELINES={
+ITEM_PIPELINES = {
 # 'ArticleSpider.pipelines.MysqlTwistedPipline':1,
 # 'ArticleSpider.pipelines.MongoPipeline': 1,
-    'spiders.pipelines.MysqlPipeline': 1
+    'spiders.pipelines.MysqlPipeline': 700,
 }
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html

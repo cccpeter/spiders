@@ -17,3 +17,11 @@ class SpidersItem(scrapy.Item):
 class DmozItem(scrapy.Item):
     title = scrapy.Field()
     link = scrapy.Field()
+    author = scrapy.Field()
+    data = scrapy.Field()
+    readnum = scrapy.Field()
+    fans = scrapy.Field()
+    likes = scrapy.Field()
+    comment = scrapy.Field()
+    content = scrapy.Field()
+
