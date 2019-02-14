@@ -23,5 +23,5 @@ class DmozItem(scrapy.Item):
     fans = scrapy.Field()
     likes = scrapy.Field()
     comment = scrapy.Field()
-    content = scrapy.Field()
+    # content = scrapy.Field()
 

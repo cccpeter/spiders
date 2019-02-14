@@ -94,7 +94,7 @@ ROBOTSTXT_OBEY = False
 DOWNLOADER_MIDDLEWARES = {
 	'scrapy.downloadermiddleware.useragent.UserAgentMiddleware' : None,#必需 ,禁用默认的middleware
    'spiders.middlewares.SpidersDownloaderMiddleware': 543,
-   'spiders.middlewares.RotateUserAgentMiddleware':50,
+   'spiders.middlewares.RotateUserAgentMiddleware':500,
 }
 
 

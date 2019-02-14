@@ -7,6 +7,9 @@
 import random
 from scrapy.downloadermiddlewares.useragent import UserAgentMiddleware
 from scrapy import signals
+import MySQLdb
+
+
 class RotateUserAgentMiddleware(UserAgentMiddleware):
     def __init__(self, user_agent=''):
         self.user_agent = user_agent
@@ -17,8 +20,22 @@ class RotateUserAgentMiddleware(UserAgentMiddleware):
             print
             ua, '-----------------yyyyyyyyyyyyyyyyyyyyyyyyy'
             request.headers.setdefault('User-Agent', ua)
+            # request.meta['proxy'] = self.getips()
+            # print('当前代理ip为:'+request.meta['proxy'])
+            # print(request.headers.setdefault)
 
             # the default user_agent_list composes chrome,I E,firefox,Mozilla,opera,netscape
+    def getips(self):
+        pro_id = random.randint(0, 3)
+        conn = MySQLdb.connect('127.0.0.1', 'root', 'mysql', 'test', charset="utf8", use_unicode=True)
+        cursor = conn.cursor()
+        insert_sql = "select * from proxy "
+        # print('sql语句：%s'% insert_sql)
+        cursor.execute(insert_sql)
+        datas = cursor.fetchall()
+        data=datas[pro_id]
+        conn.close()
+        return data[4]+'://'+data[1]+':'+data[2]
 
     # for more user agent strings,you can find it in http://www.useragentstring.com/pages/useragentstring.php
     user_agent_list = [ \
