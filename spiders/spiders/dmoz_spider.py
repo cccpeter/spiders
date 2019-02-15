@@ -10,7 +10,7 @@ class DmozSpider(scrapy.Spider):
 	name = "dmoz"
 	allowed_domains = ["blog.csdn.net"]
 	start_urls = [
-		"https://blog.csdn.net/weixin_43117449/article/details/86498954"
+		"https://blog.csdn.net/dd864140130/article/details/49817357"
 	]
 
 	def parse(self, response):
@@ -33,45 +33,45 @@ class DmozSpider(scrapy.Spider):
 				time.sleep(0.2)
 				yield scrapy.Request(page, callback=self.resolve_page, dont_filter=True)
 			# print(response.xpath("//html"))
-		else:
-			print('已经存在，则不爬')
 	# 解析文章
 
 	def resolve_page(self, response):
-		title = response.xpath("//h1[@class='title-article']/text()").extract()[0]
-		original = response.xpath("//span[@class='count']/text()").extract()[0]
-		fans = response.xpath("//span[@class='count']/text()").extract()[1]
-		likes = response.xpath("//span[@class='count']/text()").extract()[2]
-		comment = response.xpath("//span[@class='count']/text()").extract()[3]
-		# content = response.xpath("//div[@class='htmledit_views']").extract()[0]
-		data = response.xpath("//span[@class='time']").extract()[0]
-		author = response.xpath("//a[@class='follow-nickName']/text()").extract()[0]
-		readnum = response.xpath("//span[@class='read-count']/text()").extract()[0]
-		readnum=readnum.replace("阅读数：", "")
-		# print("日期："+data)
-		# print("作者："+author)
-		# print("阅读数:"+readnum)
-		# print("原创:"+original)
-		# print("粉丝:"+fans)
-		# print("喜欢:"+likes)
-		# print("评论数量:"+comment)
-		# print("内容:"+content)
-		item = DmozItem()
-		item['title'] = title
-		item['link'] = response.url
-		item['author'] = author
-		item['data'] = data
-		item['readnum'] = readnum
-		item['fans'] = fans
-		item['likes'] = likes
-		item['comment'] = comment
-		print('爬取的连接为:'+response.url)
-		time.sleep(0.1)
-		yield item
-		page_list = response.xpath("//div[@class='content']/a/@href").extract()
-		for page in page_list:
-			yield scrapy.Request(page, callback=self.parse, dont_filter=True)
-
+		if self.exitsurl(response.url) != '0':
+			title = response.xpath("//h1[@class='title-article']/text()").extract()[0]
+			original = response.xpath("//span[@class='count']/text()").extract()[0]
+			fans = response.xpath("//span[@class='count']/text()").extract()[1]
+			likes = response.xpath("//span[@class='count']/text()").extract()[2]
+			comment = response.xpath("//span[@class='count']/text()").extract()[3]
+			# content = response.xpath("//div[@class='htmledit_views']").extract()[0]
+			data = response.xpath("//span[@class='time']").extract()[0]
+			author = response.xpath("//a[@class='follow-nickName']/text()").extract()[0]
+			readnum = response.xpath("//span[@class='read-count']/text()").extract()[0]
+			readnum=readnum.replace("阅读数：", "")
+			# print("日期："+data)
+			# print("作者："+author)
+			# print("阅读数:"+readnum)
+			# print("原创:"+original)
+			# print("粉丝:"+fans)
+			# print("喜欢:"+likes)
+			# print("评论数量:"+comment)
+			# print("内容:"+content)
+			item = DmozItem()
+			item['title'] = title
+			item['link'] = response.url
+			item['author'] = author
+			item['data'] = data
+			item['readnum'] = readnum
+			item['fans'] = fans
+			item['likes'] = likes
+			item['comment'] = comment
+			print('爬取的连接为:'+response.url)
+			time.sleep(0.1)
+			yield item
+			page_list = response.xpath("//div[@class='content']/a/@href").extract()
+			for page in page_list:
+				yield scrapy.Request(page, callback=self.parse, dont_filter=True)
+		else:
+			print('已经存在，则不爬')
 
 	def exitsurl(self, url):
 		r = redis.Redis(host='localhost', port=6379, decode_responses=True)
