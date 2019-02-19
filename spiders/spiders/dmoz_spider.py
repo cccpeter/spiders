@@ -10,7 +10,7 @@ class DmozSpider(scrapy.Spider):
 	name = "dmoz"
 	allowed_domains = ["blog.csdn.net"]
 	start_urls = [
-		"https://blog.csdn.net/dd864140130/article/details/49817357"
+		"https://blog.csdn.net/kXYOnA63Ag9zqtXx0/article/details/84076622"
 	]
 
 	def parse(self, response):
@@ -25,13 +25,12 @@ class DmozSpider(scrapy.Spider):
 	def parse_detail(self, response):
 		page_link = response.xpath("//div[@class='article-item-box csdn-tracking-statistics']/h4/a/@href").extract()
 		# 各个文章的地址
-		if self.exitsurl(response.url) != '0':
-			del(page_link[0])
-			for page in page_link:
-				# print('获取到文章的url:' + page)
-				#开始解析文章内容
-				time.sleep(0.2)
-				yield scrapy.Request(page, callback=self.resolve_page, dont_filter=True)
+		del(page_link[0])
+		for page in page_link:
+			# print('获取到文章的url:' + page)
+			#开始解析文章内容
+			time.sleep(0.2)
+			yield scrapy.Request(page, callback=self.resolve_page, dont_filter=True)
 			# print(response.xpath("//html"))
 	# 解析文章
 
@@ -65,7 +64,6 @@ class DmozSpider(scrapy.Spider):
 			item['likes'] = likes
 			item['comment'] = comment
 			print('爬取的连接为:'+response.url)
-			time.sleep(0.1)
 			yield item
 			page_list = response.xpath("//div[@class='content']/a/@href").extract()
 			for page in page_list:
