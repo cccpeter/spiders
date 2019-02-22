@@ -10,7 +10,7 @@ class DmozSpider(scrapy.Spider):
 	name = "dmoz"
 	allowed_domains = ["blog.csdn.net"]
 	start_urls = [
-		"https://blog.csdn.net/kXYOnA63Ag9zqtXx0/article/details/84076622"
+		"https://blog.csdn.net/xindoo/article/details/86561994"
 	]
 
 	def parse(self, response):
