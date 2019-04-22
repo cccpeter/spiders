@@ -4,7 +4,7 @@
 
 ### 技术：
 
-> * scrpay爬取+词云模块分析+结巴分词+redis去重+MySQL
+> * scrapy爬取+词云模块分析+结巴分词+redis去重+MySQL
 
 
 
